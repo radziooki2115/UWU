@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Powody</title>
+    <style>
+        body {
+            background-color: #2a1a3a;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background-color: #4b2d5f;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            text-align: center;
+            display: none;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            overflow: auto;
+            max-height: 90vh;
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 15px 0;
+            font-size: 18px;
+            opacity: 0;
+            display: none;
+            animation: fadeInUp 1s forwards;
+        }
+        li:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        li:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        li:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        li:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+        li:nth-child(5) {
+            animation-delay: 1s;
+        }
+        li:nth-child(6) {
+            animation-delay: 1.2s;
+        }
+        .button {
+            background-color: #6a3e8c;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: transform 0.3s, background-color 0.3s;
+            animation: fadeInUp 1s forwards;
+            opacity: 0;
+            animation-delay: 0.3s;
+            margin-top: 20px;
+        }
+        .button:hover {
+            transform: scale(1.1);
+            background-color: #8a4b9f;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            opacity: 0;
+            display: none;
+            animation: slideIn 1s forwards;
+        }
+        img:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        img:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+        img:nth-child(6) {
+            animation-delay: 1s;
+        }
+        img:nth-child(8) {
+            animation-delay: 1.2s;
+        }
+        img:nth-child(10) {
+            animation-delay: 1.4s;
+        }
+        img:nth-child(12) {
+            animation-delay: 1.6s;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+    </style>
+    <script>
+        let currentIndex = 0;
+        const reasons = [
+            { text: "MY łamiemy kości, a nie serca", img: "received_2309192566111090.jpg" },
+            { text: "Radzio umie gotować", img: "torcik.png" },
+            { text: "Ma słodkiego pieska", img: "pies.jpg" },
+            { text: "Ma giga fascynujące przygody", img: "radzioikoldzy.png" },
+            { text: "Radzio umie grać na ukulele", img: "ukulelle.jpg" },
+            { text: "Czy Giga Radzio przekonał Cię??", img: "pngegg (5).png" },
+        ];
+
+        function showNextReason() {
+            if (currentIndex < reasons.length) {
+                const reason = reasons[currentIndex];
+                const li = document.createElement('li');
+                li.textContent = `${currentIndex + 1}. ${reason.text}`;
+                document.getElementById('reasons').appendChild(li);
+
+                const img = document.createElement('img');
+                img.src = reason.img;
+                img.alt = `Obrazek ${currentIndex + 1}`;
+                document.getElementById('reasons').appendChild(img);
+
+                // Show the elements
+                li.style.display = 'block';
+                img.style.display = 'block';
+
+                currentIndex++;
+                if (currentIndex === reasons.length) {
+                    document.getElementById('nextButton').textContent = 'Koniec';
+                }
+            }
+        }
+
+        function showReasons() {
+            document.getElementById('reasons').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('reasons').style.transform = 'scale(1)';
+                document.getElementById('reasons').style.opacity = '1';
+                document.getElementById('nextButton').style.display = 'inline-block';  // Make the button visible
+            }, 10);
+            document.getElementById('startButton').style.display = 'none';
+            showNextReason();  // Show the first reason immediately
+        }
+    </script>
+</head>
+<body>
+    <button id="startButton" class="button" onclick="showReasons()">Dlaczego warto pójść z Radziem na randkę?</button>
+    <div id="reasons" class="container"></div>
+    <button id="nextButton" class="button" onclick="showNextReason()" style="display: none;">Następny powód</button>
+</body>
+</html>
